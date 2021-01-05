@@ -1,9 +1,14 @@
+import java.util.UUID;
+
 public abstract class Account implements serializable{
-    private int id;
+    private UUID id;
     private String email;
     private String password;
     private boolean isAdmin;
-    password: String
-    isAdmin: boolean
+
+    public Account()
+
+
+
 
 }
