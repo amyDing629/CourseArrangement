@@ -1,0 +1,84 @@
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+
+public class NormalAccount extends Account implements Serializable {
+
+    private ArrayList<UUID> savedTimeTables;
+    private ArrayList<String> program;
+    private ArrayList<String> preCourses;
+
+    public NormalAccount(String email, String password, boolean isAdmin) {
+        super(email, password, isAdmin);
+        savedTimeTables = new ArrayList<UUID>();
+        program = new ArrayList<String>();
+        preCourses = new ArrayList<String>();
+    }
+
+    public ArrayList<UUID> getSavedTimeTables(){
+        return savedTimeTables;
+    }
+
+    public void addTimeTable(UUID timeTableID){
+        savedTimeTables.add(timeTableID);
+    }
+
+    public boolean hasTimeTable(UUID timeTableID){
+        for (UUID id: savedTimeTables){
+            if (timeTableID == id){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void removeTimeTable(UUID timeTableID){
+        savedTimeTables.remove(timeTableID);
+    }
+
+    public ArrayList<String> getProgram(){
+        return program;
+    }
+
+    public void addProgram(String newProgram){
+        program.add(newProgram);
+    }
+
+    public boolean hasProgram(String p){
+        for (String pr: program){
+            if (pr.equals(p)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void removeProgram(String p){
+        program.remove(p);
+    }
+
+    public ArrayList<String> getPreCourses(){
+        return preCourses;
+    }
+
+    public void addCourses(String course){
+        preCourses.add(course);
+    }
+
+    public boolean hasCourses(String course){
+        for (String c: preCourses){
+            if (c.equals(course)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void removeCourses(String course){
+        preCourses.remove(course);
+    }
+
+
+}

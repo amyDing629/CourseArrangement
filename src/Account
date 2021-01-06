@@ -1,12 +1,45 @@
+import java.io.Serializable;
 import java.util.UUID;
 
-public abstract class Account implements serializable{
-    private UUID id;
+public abstract class Account implements Serializable {
+    private final UUID id;
     private String email;
     private String password;
-    private boolean isAdmin;
+    private final boolean isAdmin;
 
-    public Account()
+    public Account(String email, String password, boolean isAdmin){
+        this.email = email;
+        this.password = password;
+        this.isAdmin = isAdmin;
+        id = UUID.randomUUID();
+    }
+
+    public UUID getID(){
+        return id;
+    }
+
+    public String getEmail(){
+        return email;
+    }
+
+    public void setEmail(String e){
+        email = e;
+    }
+
+    public String getPassword(){
+        return password;
+    }
+
+    public void setPassword(String p){
+        password = p;
+    }
+
+    public boolean getIsAdmin(){
+        return isAdmin;
+    }
+
+
+
 
 
 
