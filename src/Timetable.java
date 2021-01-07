@@ -1,7 +1,7 @@
 import java.util.List;
 import java.util.UUID;
-
-public class Timetable{
+import java.io.Serializable;
+public class Timetable implements Serializable{
     private UUID TimeTableID;
     private List<Course> courseList;
 

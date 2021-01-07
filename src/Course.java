@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Course{
+public class Course implements Serializable {
 
     private String courseID;
     private List<List<Object>> time;

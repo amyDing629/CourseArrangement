@@ -1,6 +1,6 @@
 import java.util.List;
-
-public class TimetableManager{
+import java.io.Serializable;
+public class TimetableManager implements Serializable{
     private List<Timetable> tableList;
     public TimetableManager(List<Timetable> tableList){
         this.tableList = tableList; }
