@@ -1,0 +1,22 @@
+import java.util.UUID;
+
+public class AccountManager{
+    AccountDataAccess ADA = new AccountDataAccess();
+    public void createAccount(String email, String password, boolean isAdmin){
+        Account newAcc;
+        if (isAdmin){
+            newAcc = new AdminAccount(email, password, true);
+        }else{
+            newAcc = new NormalAccount(email, password, false);
+        }
+        ADA.addObject(newAcc);
+    }
+
+    public void removeAccount(UUID id){
+        ADA.removeObject(id);
+    }
+
+    public boolean hasAccount(UUID id){
+        return ADA.hasObject(id);
+    }
+}
