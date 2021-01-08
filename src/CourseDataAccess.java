@@ -3,48 +3,61 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class AccountDataAccess implements iDataAccess {
-    private final String serFilePath = "src/accounts.ser";
-    private List<Account> accountList;
+public class CourseDataAccess implements iDataAccess{
+    private final String serFilePath = "src/courses.ser";
+    private List<Course> courseList;
+
+    public CourseDataAccess() {
+        courseList = new ArrayList<>();
+
+        try {
+            File serFile = new File(serFilePath);
+            if (serFile.exists()) {
+                deSerialize();
+            } else {
+                serFile.createNewFile();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public List<Object> getList() {
         deSerialize();
-        return new ArrayList<>(accountList);
+        return new ArrayList<>(courseList);
+    }
+
+    @Override
+    public Object getObject(UUID uuid) {
+        return null;
     }
 
 
     @Override
-    public Object getObject(UUID uuid) {
+    public Object getObject(String courseID) {
         deSerialize();
-        for (Account c : accountList) {
-            if (c.getID().equals(uuid))
+        for (Course c : courseList) {
+            if (c.getCourseID().equals(courseID))
                 return c;
         }
         return null;
     }
 
     @Override
-    public Object getObject(String code) {
-        return null;
-    }
-
-    /**
-     * add trade to file
-     * @param o
-     */
-    @Override
     public void addObject(Object o) {
         deSerialize();
-        accountList.add((Account) o);
+        courseList.add((Course) o);
         updateSer();
+
     }
 
     @Override
     public boolean hasObject(Object o) {
         deSerialize();
-        for (Account i: accountList){
-            if (i.getID().equals(o)){
+        for (Course i: courseList){
+            if (i.getCourseID().equals(o)){
                 return true;
             }
         }
@@ -53,21 +66,17 @@ public class AccountDataAccess implements iDataAccess {
 
     @Override
     public void removeObject(String o) {
-
+        deSerialize();
+        courseList.removeIf(i -> i.getCourseID().equals(o));
+        updateSer();
     }
 
     @Override
     public void removeObject(UUID o) {
-        deSerialize();
-        accountList.removeIf(i -> i.getID().equals(o));
-        updateSer();
 
     }
 
-    /**
-     * update info from temporary ist to file
-     */
-    @Override @SuppressWarnings("ALL")
+    @Override
     public void updateSer() {
         File file = new File(serFilePath);
         file.delete();
@@ -86,8 +95,8 @@ public class AccountDataAccess implements iDataAccess {
             e.printStackTrace();
         }
         serialize();
-    }
 
+    }
 
     @Override
     @SuppressWarnings("unchecked")
@@ -99,7 +108,7 @@ public class AccountDataAccess implements iDataAccess {
                 InputStream buffer = new BufferedInputStream(fileIn);
                 ObjectInputStream in = new ObjectInputStream(buffer);
 
-                accountList = (List<Account>) in.readObject();
+                courseList = (List<Course>) in.readObject();
                 in.close();
                 fileIn.close();
             }
@@ -120,12 +129,11 @@ public class AccountDataAccess implements iDataAccess {
             OutputStream buffer = new BufferedOutputStream(fileOut);
             ObjectOutputStream out = new ObjectOutputStream(buffer);
 
-            out.writeObject(accountList);
+            out.writeObject(courseList);
             out.close();
             fileOut.close();
         } catch (IOException i) {
             i.printStackTrace();
         }
     }
-
 }

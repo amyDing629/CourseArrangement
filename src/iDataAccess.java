@@ -5,9 +5,9 @@ public interface iDataAccess {
 
     List<Object> getList();
 
-    Object getObject(String name);
-
     Object getObject(UUID uuid);
+
+    Object getObject(String code);
 
     void addObject(Object o);
 
@@ -21,6 +21,6 @@ public interface iDataAccess {
 
     void deSerialize(); // write ser to list
 
-    void setList(List<Object> list);
+
 
 }
