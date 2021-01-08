@@ -26,7 +26,7 @@ public class CourseDataAccess implements iDataAccess{
     @Override
     public List<Object> getList() {
         deSerialize();
-        return new ArrayList<>(courseList);
+        return new ArrayList<Object>(courseList);
     }
 
     @Override

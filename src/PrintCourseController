@@ -1,0 +1,30 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+public class PrintCourseController{
+    private NormalAccount currAccount;
+    private final CourseManager cm = new CourseManager();
+
+    public PrintCourseController(UUID acc){
+        AccountManager am = new AccountManager();
+        currAccount = (NormalAccount) am.getAccount(acc);
+    }
+
+    public List<Course> getAvailableCourses(){
+        ArrayList<Course> rst = new ArrayList<Course>();
+        List<String> preCourses = currAccount.getPreCourses();
+        for (String courseCode: preCourses){
+            rst.add(cm.getCourse(courseCode));
+        }
+        return rst;
+    }
+
+
+
+
+
+
+
+
+}

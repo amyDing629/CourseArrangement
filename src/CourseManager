@@ -1,0 +1,27 @@
+import java.util.List;
+import java.util.UUID;
+
+public class CourseManager{
+    CourseDataAccess CDA = new CourseDataAccess();
+    public void createCourse(String courseID, List<List<String>> time, String instructor, List<String>
+                prerequisite, List<String> exclusion, String department){
+        Course c = new Course(courseID, time, instructor, prerequisite, exclusion, department);
+        CDA.addObject(c);
+    }
+
+    public void removeCourse(String courseID){
+        CDA.removeObject(courseID);
+    }
+
+    public boolean hasCourse(String courseID){
+        return CDA.hasObject(courseID);
+    }
+
+    public List<Object> getCourseList(){
+        return CDA.getList();
+    }
+
+    public Course getCourse(String courseID){
+        return (Course)CDA.getObject(courseID);
+    }
+}

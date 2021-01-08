@@ -19,4 +19,8 @@ public class AccountManager{
     public boolean hasAccount(UUID id){
         return ADA.hasObject(id);
     }
+
+    public Account getAccount(UUID id){
+        return (Account) ADA.getObject(id);
+    }
 }
