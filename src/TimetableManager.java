@@ -20,4 +20,10 @@ public class TimetableManager implements Serializable{
     public void removeTable(Timetable timetable){
         tableList.remove(timetable);
     }
+    public void addCourse(Course course, Timetable timetable){
+        timetable.addCourse(course); }
+    public void removeCourse(Course course, Timetable timetable){
+        timetable.removeCourse(course);
+
+    }
 }
