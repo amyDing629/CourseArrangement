@@ -43,8 +43,10 @@ public class CalendarController implements Serializable{
          for (Course c1: listCourse){
              for (List<Object> time1: cm.getTime(c1)){
                  for (List<Object> time2: cm.getTime(course)){
-                     if (time1.get(0) == time2.get(0) & !(time1.get(1).isAfter(time2.get(2))||time1.get(1).equals
-                         (time2.get(2)) || time1.get(2).isBefore(time2.get(1))||time1.get(2).equals(time2.get(1))))
+                     LocalTime lt1 = (LocalTime) time1.get(1);
+                     LocalTime lt2 = (LocalTime) time1.get(2);
+                     if (time1.get(0) == time2.get(0) & !(lt1.isAfter(lt2)||time1.get(1).equals
+                         (time2.get(2)) || lt2.isBefore(lt1)||time1.get(2).equals(time2.get(1))))
                     {return false;
                  }
              }
