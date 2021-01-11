@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class PrintCourseController{
-    private NormalAccount currAccount;
+    private final NormalAccount currAccount;
     private final CourseManager cm = new CourseManager();
 
     public PrintCourseController(UUID acc){
@@ -11,7 +11,7 @@ public class PrintCourseController{
         currAccount = (NormalAccount) am.getAccount(acc);
     }
 
-    public List<Course> getAvailableCourses(){
+    public List<Course> getPreCourses(){
         ArrayList<Course> rst = new ArrayList<Course>();
         List<String> preCourses = currAccount.getPreCourses();
         for (String courseCode: preCourses){
@@ -20,11 +20,31 @@ public class PrintCourseController{
         return rst;
     }
 
+    public List<String> canTakeCourses() {
+        List<String> cl = cm.getCourseIDList();
+        for (Course c : cm.getCourseList()) {
+            for (String exclude : c.getExclusion()) {
+                if (currAccount.getPreCourses().contains(exclude)) {
+                    cl.remove(c.getCourseID());
+                }
+            }
+            for (String pre : c.getPrerequisite()) {
+                if (!currAccount.getPreCourses().contains(pre)) {
+                    cl.remove(c.getCourseID());
+                }
+            }
+        }
+        return cl;
+    }
 
-
-
-
-
-
+    public List<String> depCourseRecommend(String department){
+        List<String> cl = new ArrayList<String>();
+        for (String c: canTakeCourses()){
+            if (cm.getCourse(c).getDepartment().equals(department)){
+                cl.add(c);
+            }
+        }
+        return cl;
+    }
 
 }

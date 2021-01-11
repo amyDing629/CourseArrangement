@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,11 +18,27 @@ public class CourseManager{
         return CDA.hasObject(courseID);
     }
 
-    public List<Object> getCourseList(){
-        return CDA.getList();
+    public List<Course> getCourseList(){
+        List<Course> rst = new ArrayList<Course>();
+        for (Object o: CDA.getList()){
+            rst.add((Course)o);
+        }
+        return rst;
+    }
+
+    public List<String> getCourseIDList(){
+        List<String> rst = new ArrayList<String>();
+        for (Course c: getCourseList()){
+            rst.add(c.getCourseID());
+        }
+        return rst;
     }
 
     public Course getCourse(String courseID){
         return (Course)CDA.getObject(courseID);
+    }
+
+    public List<List<Object>> getTime(Course c) {
+        return c.getTime();
     }
 }
